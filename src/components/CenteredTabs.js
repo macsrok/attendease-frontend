@@ -12,16 +12,23 @@ const styles = {
 };
 
 class CenteredTabs extends React.Component {
-  state = {tabValue: 0}
+  constructor(props) {
+    super(props);
+    this.parentCallback = props.onChangeCallback
+    this.state = {
+      tabValue: 0
+    }
+  }
 
   handleChange = (event, value) => {
     this.setState(prevState => ({
       tabValue: value
     }));
+    this.parentCallback(value);
   };
 
   render() {
-    const { classes, tabValue } = this.props;
+    const { classes } = this.props;
 
     return (
       <Paper className={classes.root}>
@@ -32,9 +39,9 @@ class CenteredTabs extends React.Component {
           textColor="primary"
           centered
         >
-          <Tab label="Event Details" />
-          <Tab label="Event Schedule" />
-          <Tab label="Event Sponsors" />
+          <Tab label="Event Details"  className='centeredTab'/>
+          <Tab label="Event Schedule" className='centeredTab'/>
+          <Tab label="Event Sponsors" className='centeredTab'/>
         </Tabs>
       </Paper>
     );
